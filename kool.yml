@@ -1,0 +1,10 @@
+scripts:
+  php: kool exec php bash
+  composer: kool exec php composer
+  phpcs: kool exec php vendor/bin/phpcs .
+  psalm: kool exec php vendor/bin/psalm
+  test: kool exec php vendor/bin/phpunit
+  setup:
+    - cp -n .env.example .env
+    - kool start
+    - kool run composer install

@@ -1,0 +1,50 @@
+{
+  "name": "olegram-demo/db-tests",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Oleg Savvateev",
+      "email": "o.savvateev@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8.0",
+    "doctrine/dbal": "^3.3",
+    "illuminate/container": "^8.81",
+    "monolog/monolog": "^2.3",
+    "myclabs/php-enum": "^1.8",
+    "ramsey/uuid": "^4.2",
+    "ramsey/uuid-doctrine": "^1.8",
+    "vlucas/phpdotenv": "^5.4",
+    "zetacomponents/system-information": "^1.1"
+  },
+  "require-dev": {
+    "fzaninotto/faker": "^1.5",
+    "phpro/grumphp": "^1.8",
+    "phpunit/phpunit": "^9.5",
+    "squizlabs/php_codesniffer": "^3.6",
+    "vimeo/psalm": "^4.20"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "allow-plugins": {
+      "phpro/grumphp-shim": true,
+      "phpro/grumphp": true,
+      "composer/package-versions-deprecated": true
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

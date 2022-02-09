@@ -1,0 +1,47 @@
+version: "2"
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: php.Dockerfile
+    volumes:
+      - "./php.ini:/usr/local/etc/php/php.ini"
+      - ".:/app:cached"
+    command: "tail -f /dev/null"
+    environment:
+      - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
+      - PHP_XDEBUG_IDEKEY=${PHP_XDEBUG_IDEKEY}
+      - PHP_XDEBUG_MODE=${PHP_XDEBUG_MODE}
+      - PHP_XDEBUG_START_WITH_REQUEST=${PHP_XDEBUG_START_WITH_REQUEST}
+      - PHP_XDEBUG_CLIENT_HOST=${PHP_XDEBUG_CLIENT_HOST}
+      - PHP_XDEBUG_CLIENT_PORT=${PHP_XDEBUG_CLIENT_PORT}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: "postgres:14.1-alpine"
+    volumes:
+      - "postgres_data:/var/lib/postgresql/data"
+    ports:
+      - "${POSTGRES_EXPOSE_PORT}:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+  mysql:
+    image: "mysql:8.0"
+    volumes:
+      - "mysql_data:/var/lib/mysql"
+    ports:
+      - "${MYSQL_EXPOSE_PORT}:3306"
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DB}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+
+volumes:
+  postgres_data:
+  mysql_data:

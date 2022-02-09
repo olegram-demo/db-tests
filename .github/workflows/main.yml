@@ -1,0 +1,22 @@
+name: db-tests-workflow
+on: push
+jobs:
+  code_quality_and_test:
+    name: Code quality and test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cp .env.example .env
+      - run: docker-compose pull
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+      - run: docker-compose up -d
+      - run: docker-compose exec -T php composer install --no-plugins
+      - run: docker-compose exec -T php vendor/bin/phpcs .
+      - run: docker-compose exec -T php vendor/bin/psalm
+      - run: docker-compose exec -T php vendor/bin/phpunit --log-junit junit-report.xml
+      - name: Publish test report
+        uses: mikepenz/action-junit-report@v2
+        if: always()
+        with:
+          report_paths: junit-report.xml

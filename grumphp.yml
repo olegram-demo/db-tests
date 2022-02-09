@@ -1,0 +1,16 @@
+grumphp:
+  tasks:
+    phpcs:
+      standard: [] # use phpcs.xml by default
+    psalm:
+      config: psalm.xml
+
+  git_hook_variables:
+    EXEC_GRUMPHP_COMMAND: 'docker-compose exec -T php'
+
+  fixer:
+    enabled: false
+
+  ascii:
+    failed: ~
+    succeeded: ~
